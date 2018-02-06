@@ -12,6 +12,7 @@
             Loading ...
         </div>
     </main>
+
   </div>
 </template>
 
@@ -23,6 +24,7 @@
 
 <style lang="scss">
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
+  @import "../node_modules/leaflet/dist/leaflet.css"
 </style>
 
 <style>

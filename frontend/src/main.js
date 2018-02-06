@@ -8,12 +8,16 @@ import VueAuth from '@websanova/vue-auth'
 import BootstrapVue from 'bootstrap-vue'
 import VueLocalStorage from 'vue-localstorage'
 
+import * as VueWindow from '@hscmap/vue-window'
+
 import * as CONFIG from './config.json'
 
 import App from './App'
 import router from './router'
 
 Vue.router = router
+
+Vue.use(VueWindow)
 
 Vue.use(VueLocalStorage, {
   name: 'localStorage',
