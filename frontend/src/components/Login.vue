@@ -25,19 +25,10 @@
         </b-form>
     </div>
 
-    <window></window>
-
   </div>
 </template>
 
 <script>
-  import Window from '@/directives/Window'
-
-/*      this.axios.post('login', {
-        name: this.form.name,
-        password: this.form.password
-      })*/   
-
   export default {
     name: 'login',
     data () {
@@ -52,8 +43,6 @@
     methods: {
       onSubmit (evt) {
         evt.preventDefault()
-        console.log('#########')
-        console.log(this.form.name)
 
         let redirect = this.$auth.redirect()
 
@@ -66,11 +55,10 @@
           body: body, // Vue-resource
           data: body, // Axios
           rememberMe: false,
-          redirect: {name: redirect ? redirect.from.name : 'Hello'},
+          redirect: {name: redirect ? redirect.from.name : 'Home'},
           fetchUser: false
         })
           .then(response => {
-            console.log(response.data)
             this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
             this.$localStorage.set('token', response.data.token)
             // this.$router.push({path: '/home'})
@@ -90,7 +78,6 @@
       }
     },
     components: {
-      'window': Window
     }
   }
 </script>

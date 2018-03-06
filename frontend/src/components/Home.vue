@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="home">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -17,13 +17,17 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
     <button type="button" class="btn btn-primary" v-on:click="onClick">Primary</button>
+
+    <window></window>
+
   </div>
 </template>
 
 <script>
+import Window from '@/directives/Window'
 
 export default {
-  name: 'hello',
+  name: 'home',
   data () {
     return {
       msg: 'Welcome to Your Vue.js PWA'
@@ -32,7 +36,7 @@ export default {
   methods: {
     onClick (evt) {
       // HTTP.defaults.headers.common['Authorization'] = 'Bearer ' + this.$localStorage.get('access_token')
-      this.axios.get(`secret`)
+      this.axios.get(`api`)
         .then(response => {
           console.log(response.data)
         })
@@ -40,6 +44,9 @@ export default {
           console.log(e)
         })
     }
+  },
+  components: {
+    'window': Window
   }
 }
 </script>

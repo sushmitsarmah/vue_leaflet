@@ -29,6 +29,7 @@ Vue.use(BootstrapVue)
 
 Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL = CONFIG.url
+Vue.axios.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.localStorage.get('token')
 
 let authOptions = {
   authRedirect: '/',
@@ -37,7 +38,7 @@ let authOptions = {
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   token: [{request: 'token', response: 'token', authType: 'bearer', foundIn: 'header'}],
   tokenName: 'token',
-  loginData: {url: 'login', method: 'POST', redirect: 'home'},
+  loginData: {url: 'auth/login', method: 'POST', redirect: 'home'},
   logoutData: {url: 'logout', method: 'POST', redirect: 'login', makeRequest: false},
   fetchData: {url: 'secret', method: 'GET', authType: 'bearer'},
   refreshData: {enabled: false},

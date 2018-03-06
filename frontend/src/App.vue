@@ -5,6 +5,7 @@
     </header>
     <main class="container">
         <div v-if="$auth.ready()">
+            <!-- all components loaded here routes/index -->
             <router-view></router-view>
         </div>
 
