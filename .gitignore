@@ -1,3 +1,8 @@
 server/node_modules
 frontend/node_modules
 frontend/dist
+elk_stack
+data
+
+.DS_Store
+*.ipynb

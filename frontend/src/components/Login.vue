@@ -33,6 +33,11 @@
 <script>
   import Window from '@/directives/Window'
 
+/*      this.axios.post('login', {
+        name: this.form.name,
+        password: this.form.password
+      })*/   
+
   export default {
     name: 'login',
     data () {
