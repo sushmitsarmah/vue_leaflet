@@ -1,55 +1,19 @@
-var _ = require("lodash");
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var _ = require("lodash"),
+    express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser');
 
-/***************JWT libraries***********************/
+var authModule = require("./modules/authentication"),
+    passport = authModule.passport;
 
-var jwt = require('jsonwebtoken');
+var db = require('./database/mongo/connection');
 
-var passport = require("passport");
-var passportJWT = require("passport-jwt");
-
-var ExtractJwt = passportJWT.ExtractJwt;
-var JwtStrategy = passportJWT.Strategy;
-
-var users = [
-  {
-    id: 1,
-    name: 'sushmit',
-    password: 'sushmit'
-  },
-  {
-    id: 2,
-    name: 'test',
-    password: 'test'
-  }
-];
-
-var jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = 'tasmanianDevil';
-
-var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
-  console.log('payload received', jwt_payload);
-  // usually this would be a database call:
-  var user = users[_.findIndex(users, {id: jwt_payload.id})];
-  if (user) {
-    next(null, user);
-  } else {
-    next(null, false);
-  }
-});
-
-passport.use(strategy);
-
-/**************************************/
-
-var routes = require('./routes/index');
-// var users = require('./routes/users');
+var routes = require('./routes/index'),
+    auth = require('./routes/auth'),
+    api = require('./routes/api');
 
 var app = express();
 
@@ -76,7 +40,7 @@ app.use(function(req, res, next) {
     //intercepts OPTIONS method
     if ('OPTIONS' === req.method) {
       //respond with 200
-      res.send(200);
+      res.sendStatus(200);
     }
     else {
     //move on
@@ -85,34 +49,14 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
-// app.use('/users', users);
+app.use('/auth/', auth);
+app.use('/api/',
+    passport.authenticate('jwt', { session: false }), api);
 
-app.post("/login", function(req, res) {
-  console.log(req.body);
-  if(req.body.username && req.body.password){
-    var username = req.body.username;
-    var password = req.body.password;
-  }
-
-  // usually this would be a database call:
-  var user = users[_.findIndex(users, {name: username})];
-
-  if( ! user ){
-    res.status(401).json({message:"no such user found"});
-  }
-
-  if(user.password === req.body.password) {
-    // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
-    var payload = {id: user.id};
-    var token = jwt.sign(payload, jwtOptions.secretOrKey);
-    res.json({message: "ok", token: token});
-  } else {
-    res.status(401).json({message:"passwords did not match"});
-  }
-});
-
-app.get("/secret", passport.authenticate('jwt', { session: false }), function(req, res){
-  res.json({message: "Success! You can not see this without a token"});
+app.get("/secret",
+        passport.authenticate('jwt', { session: false }),
+  function(req, res){
+      res.json({message: "Success! You can not see this without a token"});
 });
 
 // catch 404 and forward to error handler
