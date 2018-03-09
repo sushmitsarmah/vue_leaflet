@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'app'
-  }
+    export default {
+        name: 'app'
+    }
 </script>
 
 <style lang="scss">
@@ -41,8 +41,8 @@ body {
 }
 
 main {
-  text-align: center;
-  margin-top: 40px;
+  // text-align: center;
+  // margin-top: 40px;
 }
 
 header {

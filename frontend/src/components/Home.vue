@@ -27,27 +27,27 @@
 import Window from '@/directives/Window'
 
 export default {
-  name: 'home',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js PWA'
+    name: 'home',
+    data () {
+        return {
+            msg: 'Welcome to Your Vue.js PWA'
+        }
+    },
+    methods: {
+        onClick (evt) {
+        // HTTP.defaults.headers.common['Authorization'] = 'Bearer ' + this.$localStorage.get('access_token')
+            this.axios.get(`api`)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(e => {
+                    console.log(e)
+                })
+        }
+    },
+    components: {
+        'window': Window
     }
-  },
-  methods: {
-    onClick (evt) {
-      // HTTP.defaults.headers.common['Authorization'] = 'Bearer ' + this.$localStorage.get('access_token')
-      this.axios.get(`api`)
-        .then(response => {
-          console.log(response.data)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    }
-  },
-  components: {
-    'window': Window
-  }
 }
 </script>
 

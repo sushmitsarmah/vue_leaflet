@@ -14,22 +14,22 @@
 </template>
 
 <script>
-  import Lmap from '@/directives/Map'
+import Lmap from '@/directives/Map'
 
-  export default {
+export default {
     name: 'map-window',
     data () {
-      return {
-        message: 'there is going to be a leaflet map here',
-        resizable: true,
-        closeButton: true,
-        isOpen: true,
-        minWidth: 500,
-        minHeight: 500
-      }
+        return {
+            message: 'there is going to be a leaflet map here',
+            resizable: true,
+            closeButton: true,
+            isOpen: true,
+            minWidth: 500,
+            minHeight: 500
+        }
     },
     components: {
-      Lmap
+        Lmap
     }
-  }
+}
 </script>
