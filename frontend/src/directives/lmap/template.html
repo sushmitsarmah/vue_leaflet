@@ -1,0 +1,6 @@
+<div id="map">
+    <v-map :zoom="options.zoom" :center="options.center">
+        <v-tilelayer :url="options.url" :attribution="options.attribution"></v-tilelayer>
+        <v-marker :lat-lng="options.marker" :icon="options.icon"></v-marker>
+    </v-map>
+</div>

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Lmap from '@/directives/Map'
+// import Lmap from '@/directives/Map'
 
 export default {
     name: 'map-window',
@@ -29,7 +29,7 @@ export default {
         }
     },
     components: {
-        Lmap
+        // Lmap
     }
 }
 </script>

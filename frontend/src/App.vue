@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <span>GTA - Samsung</span>
+      <span>Leaflet Vue Example</span>
     </header>
     <main class="container">
         <div v-if="$auth.ready()">
